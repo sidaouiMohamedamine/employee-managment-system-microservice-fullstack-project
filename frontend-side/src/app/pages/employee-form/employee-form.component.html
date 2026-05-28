@@ -1,0 +1,38 @@
+<p-card header="Employee Form">
+
+  <form [formGroup]="employeeForm" class="p-fluid">
+
+    <!-- First Name -->
+    <div class="field">
+      <label>First Name</label>
+      <input pInputText formControlName="firstName" />
+    </div>
+
+    <!-- Last Name -->
+    <div class="field">
+      <label>Last Name</label>
+      <input pInputText formControlName="lastName" />
+    </div>
+
+    <!-- Email -->
+    <div class="field">
+      <label>Email</label>
+      <input pInputText formControlName="email" />
+    </div>
+
+    <!-- Phone -->
+    <div class="field">
+      <label>Phone</label>
+      <input pInputText formControlName="phone" />
+    </div>
+
+    <!-- Submit -->
+    <p-button
+      label="Save Employee"
+      icon="pi pi-check"
+      (onClick)="submit()">
+    </p-button>
+
+  </form>
+
+</p-card>

@@ -1,0 +1,49 @@
+<p-card styleClass="card-table">
+
+  <div class="table-header">
+    <h2>Employees</h2>
+  </div>
+
+  <p-table
+    [value]="employees"
+    [paginator]="true"
+    [rows]="8"
+    responsiveLayout="scroll"
+  >
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Team</th>
+        <th>Level</th>
+        <th>Salary</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-emp>
+      <tr>
+
+        <td>{{ emp.firstname }} {{ emp.lastname }}</td>
+        <td>{{ emp.email }}</td>
+        <td>{{ emp.department?.name }}</td>
+        <td>{{ emp.team?.name }}</td>
+        <td>
+          <span class="badge">{{ emp.level }}</span>
+        </td>
+        <td>{{ emp.salary }}</td>
+
+        <td>
+          <button pButton icon="pi pi-eye" class="p-button-text"></button>
+          <button pButton icon="pi pi-pencil" class="p-button-text"></button>
+          <button pButton icon="pi pi-trash" class="p-button-text p-button-danger"></button>
+        </td>
+
+      </tr>
+    </ng-template>
+
+  </p-table>
+
+</p-card>

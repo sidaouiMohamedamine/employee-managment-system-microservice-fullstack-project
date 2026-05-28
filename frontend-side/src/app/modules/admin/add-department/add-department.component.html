@@ -1,0 +1,95 @@
+<div class="department-page">
+
+  <div class="form-container">
+
+    <p-card styleClass="department-card">
+
+      <!-- HEADER -->
+
+      <div class="form-header">
+
+        <div class="icon-container">
+          <i class="pi pi-building"></i>
+        </div>
+
+        <h2>Create Department</h2>
+
+        <p>
+          Manage your organization departments easily
+        </p>
+
+      </div>
+
+      <!-- FORM -->
+
+      <form
+        [formGroup]="departmentForm"
+        class="p-fluid"
+      >
+
+        <!-- NAME -->
+
+        <div class="field">
+
+          <label>
+            <i class="pi pi-briefcase"></i> Department Name
+          </label>
+
+          <span class="p-input-icon-left">
+            <input
+              pInputText
+              formControlName="name"
+              placeholder="Enter department name"
+            />
+
+          </span>
+<div
+  *ngIf="departmentForm.get('name')?.invalid &&
+         departmentForm.get('name')?.touched"
+  class="alert alert-danger mt-1 rounded"
+>
+  Department name is required
+      </div>
+
+        </div>
+        <!-- DESCRIPTION -->
+
+        <div class="field">
+
+          <label>
+              <i class="pi pi-file-edit"></i> Description
+          </label>
+
+          <span class="p-input-icon-left textarea-icon">
+
+
+            <textarea
+              pInputTextarea
+              rows="5"
+              formControlName="description"
+              placeholder="Write department description..."
+              class="text-dark"
+            >
+            </textarea>
+
+          </span>
+
+        </div>
+        <!-- BUTTON -->
+
+        <button
+          pButton
+          type="submit"
+          label="Save Department"
+          icon="pi pi-check"
+          class="submit-btn text-light"
+        >
+        </button>
+
+      </form>
+
+    </p-card>
+
+  </div>
+
+</div>

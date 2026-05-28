@@ -1,0 +1,23 @@
+.dashboard-layout{
+  display:flex;
+  min-height:100vh;
+}
+
+.main-container{
+  flex:1;
+  background:#f1f5f9;
+}
+
+.content{
+  padding:25px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+  .dashboard-layout{
+    flex-direction:column;
+  }
+
+}

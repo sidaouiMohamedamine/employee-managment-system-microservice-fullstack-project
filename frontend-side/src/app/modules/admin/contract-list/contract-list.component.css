@@ -1,0 +1,55 @@
+.card-table {
+  border-radius: 16px;
+  padding: 20px;
+  background: #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Header */
+.table-header {
+  margin-bottom: 15px;
+}
+
+.table-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Badge */
+.badge {
+  background: #4f46e5;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* TABLE LIGHT */
+:host ::ng-deep .p-datatable-thead > tr > th {
+  background: #f9fafb !important;
+  color: #374151 !important;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+:host ::ng-deep .p-datatable-tbody > tr {
+  background: #ffffff !important;
+  color: #111827;
+}
+
+:host ::ng-deep .p-datatable-tbody > tr:hover {
+  background: #f3f4f6 !important;
+}
+
+:host ::ng-deep .p-datatable-tbody > tr > td {
+  border-bottom: 1px solid #f1f5f9;
+  padding: 12px;
+}
+
+/* PAGINATION */
+:host ::ng-deep .p-paginator {
+  background: #ffffff !important;
+  border-top: 1px solid #e5e7eb;
+}

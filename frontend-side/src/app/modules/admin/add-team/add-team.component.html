@@ -1,0 +1,74 @@
+<div class="department-page">
+
+  <div class="form-container">
+
+    <p-card styleClass="department-card">
+
+      <!-- HEADER -->
+      <div class="form-header">
+
+        <div class="icon-container">
+          <i class="pi pi-users"></i>
+        </div>
+
+        <h2>Create Team</h2>
+
+        <p>Manage your teams easily</p>
+
+      </div>
+
+      <!-- FORM -->
+      <form [formGroup]="teamForm" class="p-fluid">
+
+        <!-- NAME -->
+        <div class="field">
+
+          <label>
+            <i class="pi pi-tag"></i> Team Name
+          </label>
+
+          <input
+            pInputText
+            formControlName="name"
+            placeholder="Enter team name"
+          />
+
+          <small class="error"
+            *ngIf="teamForm.get('name')?.invalid && teamForm.get('name')?.touched">
+            Team name is required
+          </small>
+
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="field">
+
+          <label>
+            <i class="pi pi-file"></i> Description
+          </label>
+
+          <textarea
+            pInputTextarea
+            rows="4"
+            formControlName="description"
+            placeholder="Write team description..."
+          ></textarea>
+
+        </div>
+
+        <!-- BUTTON -->
+        <button
+          pButton
+          type="submit"
+          label="Save Team"
+          icon="pi pi-check"
+          class="submit-btn"
+        ></button>
+
+      </form>
+
+    </p-card>
+
+  </div>
+
+</div>

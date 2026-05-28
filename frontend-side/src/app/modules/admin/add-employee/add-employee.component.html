@@ -1,0 +1,166 @@
+<div class="page">
+
+  <div class="container">
+
+    <p-card styleClass="card">
+
+      <!-- HEADER -->
+      <div class="header">
+
+        <div class="icon">
+          <i class="pi pi-user"></i>
+        </div>
+
+        <h2>Add Employee</h2>
+        <p>Create a new employee profile</p>
+
+      </div>
+
+      <!-- FORM -->
+      <form [formGroup]="employeeForm" class="p-fluid">
+
+        <!-- FIRSTNAME -->
+        <div class="field">
+          <label>First Name</label>
+
+          <input
+            pInputText
+            formControlName="firstname"
+            placeholder="John"
+          />
+
+          <small class="error"
+            *ngIf="f['firstname'].invalid && f['firstname'].touched">
+            First name is required
+          </small>
+        </div>
+
+        <!-- LASTNAME -->
+        <div class="field">
+          <label>Last Name</label>
+
+          <input
+            pInputText
+            formControlName="lastname"
+            placeholder="Doe"
+          />
+
+          <small class="error"
+            *ngIf="f['lastname'].invalid && f['lastname'].touched">
+            Last name is required
+          </small>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="field">
+          <label>Email</label>
+
+          <input
+            pInputText
+            formControlName="email"
+            placeholder="email@example.com"
+          />
+
+          <small class="error"
+            *ngIf="f['email'].invalid && f['email'].touched">
+            Valid email required
+          </small>
+        </div>
+
+        <!-- PHONE -->
+        <div class="field">
+          <label>Phone</label>
+
+          <input
+            pInputText
+            formControlName="phoneNumber"
+            placeholder="+216..."
+          />
+        </div>
+
+        <!-- SALARY -->
+        <div class="field">
+          <label>Salary</label>
+
+          <input
+            pInputText
+            type="number"
+            formControlName="salary"
+            placeholder="1000"
+          />
+        </div>
+
+        <!-- LEVEL -->
+        <div class="field">
+          <label>Level</label>
+
+          <p-dropdown
+            [options]="levels"
+            formControlName="level"
+            placeholder="Select level"
+          ></p-dropdown>
+        </div>
+
+        <!-- DEPARTMENT -->
+        <div class="field">
+          <label>Department</label>
+
+          <p-dropdown
+            [options]="departments"
+            formControlName="department"
+            optionLabel="name"
+            placeholder="Select department"
+          ></p-dropdown>
+        </div>
+
+        <!-- TEAM -->
+        <div class="field">
+          <label>Team</label>
+
+          <p-dropdown
+            [options]="teams"
+            formControlName="team"
+            optionLabel="name"
+            placeholder="Select team"
+          ></p-dropdown>
+        </div>
+
+        <!-- CONTRACT -->
+        <div class="field">
+          <label>Contract</label>
+
+          <p-dropdown
+            [options]="contracts"
+            formControlName="contract"
+            optionLabel="type"
+            placeholder="Select contract"
+          ></p-dropdown>
+        </div>
+
+        <!-- ADDRESS -->
+        <div class="field">
+          <label>Address</label>
+
+          <textarea
+            pInputTextarea
+            formControlName="adress"
+            rows="3"
+            placeholder="Address..."
+            class="text-dark"
+          ></textarea>
+        </div>
+
+        <!-- BUTTON -->
+        <button
+          pButton
+          label="Save Employee"
+          icon="pi pi-check"
+          class="btn text-light"
+          [disabled]="employeeForm.invalid"
+        ></button>
+      </form>
+    </p-card>
+
+  </div>
+
+</div>

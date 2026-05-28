@@ -1,0 +1,86 @@
+<div class="sidebar">
+
+  <h2 class="logo">Admin</h2>
+<div class="menu-item" (click)="toggleDepartment()">
+  Department
+</div>
+  <!-- DROPDOWN -->
+  <ul *ngIf="departmentOpen" class="submenu">
+
+    <li routerLink="/admin-dashboard/add-departement">
+      Add New Department
+    </li>
+
+    <li routerLink="/admin-dashboard/department-list">
+      Department List
+    </li>
+
+
+  </ul>
+
+  <!-- TEAM MENU -->
+<div class="menu-item" (click)="toggleTeam()">
+  Team
+</div>
+  <!-- DROPDOWN -->
+  <ul *ngIf="teamOpen" class="submenu">
+
+    <li routerLink="/admin-dashboard/add-team">
+      Add New Team
+    </li>
+
+    <li routerLink="/admin-dashboard/team-list">
+      Team List
+    </li>
+
+    <li routerLink="/admin/team/stats">
+      Statistiques
+    </li>
+
+  </ul>
+<!-- Employees-->
+<div class="menu-item" (click)="toggleEmployee()">
+  Employees
+</div>
+  <!-- DROPDOWN -->
+  <ul *ngIf="employeeOpen" class="submenu">
+
+    <li routerLink="/admin-dashboard/add-employee">
+      Add New Employee
+    </li>
+
+    <li routerLink="/admin-dashboard/employee-list">
+      Employee List
+    </li>
+
+    <li routerLink="/admin/team/stats">
+      Statistiques
+    </li>
+
+  </ul>
+<!-- Employees-->
+<div class="menu-item" (click)="toggleContract()">
+  Contract
+</div>
+  <!-- DROPDOWN -->
+  <ul *ngIf="contractOpen" class="submenu">
+
+    <li routerLink="/admin-dashboard/add-contract">
+      Add New Contract
+    </li>
+
+    <li routerLink="/admin-dashboard/contract-list">
+      Contract List
+    </li>
+
+    <li routerLink="/admin/team/stats">
+      Statistiques
+    </li>
+
+  </ul>
+<div class="menu-item" >
+  AI Assistant
+</div>
+
+</div>
+
