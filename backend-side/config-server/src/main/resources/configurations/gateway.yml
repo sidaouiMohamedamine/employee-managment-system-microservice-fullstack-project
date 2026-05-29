@@ -1,0 +1,26 @@
+server:
+  port: 8090
+eureka:
+  client:
+    register-with-eureka: false
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: false
+          routes:
+            - id: staff
+              uri: http://localhost:8060
+              predicates:
+                - Path=/api/staff/**
+            - id: contract
+              uri: http://localhost:8070
+              predicates:
+                - Path=/api/contract/**
+management:
+  tracing:
+    sampling:
+      probability: 1.0
