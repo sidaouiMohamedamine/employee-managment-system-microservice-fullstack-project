@@ -6,7 +6,9 @@ import { providePrimeNG } from 'primeng/config';
 import Lara from '@primeng/themes/lara';
 
 import { routes } from './app.routes';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideClientHydration } from '@angular/platform-browser';
+import { authInterceptor } from './core/services/auth/authInterceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +18,11 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: Lara
       }
-    })
+    }),
+    provideHttpClient(
+      withFetch(),                    // requis pour SSR/hydration
+      withInterceptors([authInterceptor])  // intercepteur fonctionnel
+    ),
+    
   ]
 };

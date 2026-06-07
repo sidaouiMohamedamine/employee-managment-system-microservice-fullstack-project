@@ -11,7 +11,8 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
-
+import { AuthService } from '../../../core/services/auth/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-auth',
   standalone: true,
@@ -28,29 +29,50 @@ import { CommonModule } from '@angular/common';
 })
 export class AuthComponent {
   loginForm: FormGroup;
-  submitted = false;
+  submitted  = false;
+  loading    = false;
+  errorMsg   = '';
 
-  constructor(private fb: FormBuilder) {
-
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    });
-
-  }
-
-  submit() {
-    this.submitted = true;
-
-    if (this.loginForm.invalid) {
-      return;
+  constructor(
+    private fb:          FormBuilder,
+    private authService: AuthService,
+    private router:      Router
+  ) {
+    // Redirige si déjà connecté
+    if (this.authService.isLoggedInSnapshot()) {
+      this.router.navigate(['/dashboard']);
     }
 
-    console.log(this.loginForm.value);
+    this.loginForm = this.fb.group({
+      email:    ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
   }
 
-  get f() {
-    return this.loginForm.controls;
+  // Raccourci pour accéder aux contrôles dans le template
+  get f() { return this.loginForm.controls; }
+
+  submit(): void {
+    this.submitted = true;
+    this.errorMsg  = '';
+
+    if (this.loginForm.invalid) return;
+
+    this.loading = true;
+
+    // Keycloak utilise "username" — on envoie l'email comme username
+    const { email, password } = this.loginForm.value;
+
+    this.authService.login(email, password).subscribe({
+      next: () => {
+        this.loading = false;
+        this.router.navigate(['admin-dashboard']);
+      },
+      error: (err: Error) => {
+        this.loading  = false;
+        this.errorMsg = err.message;
+      }
+    });
   }
 
 }
