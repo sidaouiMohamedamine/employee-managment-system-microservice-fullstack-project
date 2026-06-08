@@ -4,13 +4,16 @@
     <h2>Departments</h2>
   </div>
 
-  <p-table [value]="departments" [paginator]="true" [rows]="8">
+  <p-table
+    [value]="departments"
+    [paginator]="true"
+    [rows]="rows"
+  >
 
     <ng-template pTemplate="header">
       <tr>
         <th>Name</th>
         <th>Description</th>
-        <th>Employees</th>
         <th>Actions</th>
       </tr>
     </ng-template>
@@ -19,11 +22,17 @@
       <tr>
         <td>{{ dept.name }}</td>
         <td>{{ dept.description }}</td>
-        <td><span class="badge">{{ dept.employees?.length }}</span></td>
         <td>
           <button pButton icon="pi pi-eye" class="p-button-text"></button>
-          <button pButton icon="pi pi-pencil" class="p-button-text"></button>
-          <button pButton icon="pi pi-trash" class="p-button-text p-button-danger"></button>
+
+          <button pButton icon="pi pi-pencil" class="p-button-text"  (click)="editDepartment(dept.id)"></button>
+
+          <button
+            pButton
+            icon="pi pi-trash"
+            class="p-button-text p-button-danger"
+            (click)="deleteDepartment(dept.id, dept.name)">
+          </button>
         </td>
       </tr>
     </ng-template>
@@ -31,3 +40,4 @@
   </p-table>
 
 </p-card>
+<p-confirmDialog></p-confirmDialog>

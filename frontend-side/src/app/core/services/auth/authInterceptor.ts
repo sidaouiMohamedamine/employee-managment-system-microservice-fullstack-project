@@ -18,7 +18,8 @@ import {
   HttpEvent,
   HttpErrorResponse
 } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Observable, catchError, switchMap, throwError, BehaviorSubject, filter, take } from 'rxjs';
 import { AuthService } from './auth.service';
 
@@ -27,7 +28,12 @@ const refreshDone$ = new BehaviorSubject<string | null>(null);
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
+  const platformId  = inject(PLATFORM_ID);
 
+  // SSR : pas de localStorage → on laisse passer sans token
+  if (!isPlatformBrowser(platformId)) return next(req);
+
+  // Keycloak endpoints → pas de token
   if (req.url.includes('openid-connect')) return next(req);
 
   const token = authService.getAccessToken();
@@ -41,15 +47,12 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   );
 };
 
-function addToken(
-  req: HttpRequest<unknown>,
-  token: string
-): HttpRequest<unknown> {
+function addToken(req: HttpRequest<unknown>, token: string): HttpRequest<unknown> {
   return req.clone({
     setHeaders: { Authorization: `Bearer ${token}` }
   });
 }
-/**Handles 401 Unauthorized errors caused by expired access tokens.*****************/
+
 function handle401(
   req: HttpRequest<unknown>,
   next: HttpHandlerFn,

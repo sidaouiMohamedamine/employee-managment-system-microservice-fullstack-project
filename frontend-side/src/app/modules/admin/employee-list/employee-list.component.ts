@@ -1,9 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-import { CommonModule } from '@angular/common';
-import { AdminRoutingModule } from '../admin-routing.module';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+
+import { EmployeeService } from '../../../core/services/employees/employee.service';
+import { Employee } from '../../../core/models/Employee';
+
 @Component({
   selector: 'app-employee-list',
   standalone: true,
@@ -11,76 +17,60 @@ import { AdminRoutingModule } from '../admin-routing.module';
     CommonModule,
     TableModule,
     CardModule,
-    ButtonModule],
+    ButtonModule,
+    ConfirmDialogModule
+  ],
+  providers: [ConfirmationService],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css'
 })
-export class EmployeeListComponent {
-employees = [
+export class EmployeeListComponent implements OnInit {
 
-    {
-      firstname: 'Mohamed',
-      lastname: 'Sidaoui',
-      email: 'mohamed@gmail.com',
-      salary: 2500,
-      level: 'SENIOR',
+  employees: Employee[] = [];
+  loading = false;
 
-      department: {
-        name: 'IT'
+  // 👉 pagination front
+  rows = 5;
+
+  constructor(
+    private employeeService: EmployeeService,
+    private confirmationService: ConfirmationService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadEmployees();
+  }
+
+  loadEmployees() {
+    this.loading = true;
+
+    this.employeeService.getAll().subscribe({
+      next: (data) => {
+        this.employees = data;
+        this.loading = false;
       },
-
-      team: {
-        name: 'Backend Team'
+      error: (err) => {
+        console.error(err);
+        this.loading = false;
       }
-    },
+    });
+  }
 
-    {
-      firstname: 'Amine',
-      lastname: 'Ben Salah',
-      email: 'amine@gmail.com',
-      salary: 1800,
-      level: 'JUNIOR',
+  deleteEmployee(id: number, name: string) {
 
-      department: {
-        name: 'Marketing'
-      },
+    this.confirmationService.confirm({
+      message: `Delete employee "${name}" ?`,
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
 
-      team: {
-        name: 'Digital Team'
+      accept: () => {
+        this.employeeService.delete(id).subscribe({
+          next: () => {
+            this.employees = this.employees.filter(e => e.id !== id);
+          },
+          error: (err) => console.error(err)
+        });
       }
-    },
-
-    {
-      firstname: 'Sarah',
-      lastname: 'Trabelsi',
-      email: 'sarah@gmail.com',
-      salary: 3200,
-      level: 'EXPERT',
-
-      department: {
-        name: 'Finance'
-      },
-
-      team: {
-        name: 'Accounting Team'
-      }
-    },
-
-    {
-      firstname: 'Youssef',
-      lastname: 'Karray',
-      email: 'youssef@gmail.com',
-      salary: 2100,
-      level: 'SENIOR',
-
-      department: {
-        name: 'Human Resources'
-      },
-
-      team: {
-        name: 'HR Team'
-      }
-    }
-
-  ];
+    });
+  }
 }

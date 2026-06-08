@@ -12,8 +12,9 @@
           <i class="pi pi-building"></i>
         </div>
 
-        <h2>Create Department</h2>
-
+<h2>
+  {{ isEdit ? 'Update Department' : 'Create Department' }}
+</h2>
         <p>
           Manage your organization departments easily
         </p>
@@ -83,6 +84,7 @@
           label="Save Department"
           icon="pi pi-check"
           class="submit-btn text-light"
+          (click)="submit()"
         >
         </button>
 

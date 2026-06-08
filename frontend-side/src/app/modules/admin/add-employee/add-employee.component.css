@@ -100,7 +100,7 @@ label{
 
 input[pInputText],
 textarea[pInputTextarea],
-.p-dropdown{
+.p-select{
 
   width:100%;
 
@@ -127,7 +127,7 @@ textarea[pInputTextarea]{
 
 input[pInputText]:focus,
 textarea[pInputTextarea]:focus,
-.p-dropdown:not(.p-disabled).p-focus{
+.p-select:not(.p-disabled).p-focus{
 
   border-color:#6366f1 !important;
 
@@ -137,7 +137,7 @@ textarea[pInputTextarea]:focus,
 
 /* DROPDOWN PANEL */
 
-.p-dropdown-panel{
+.p-select-panel{
 
   background:white !important;
 
@@ -150,7 +150,7 @@ textarea[pInputTextarea]:focus,
 
 /* DROPDOWN ITEMS */
 
-.p-dropdown-item{
+.p-select-item{
 
   background:white !important;
 
@@ -161,7 +161,7 @@ textarea[pInputTextarea]:focus,
 
 /* HOVER */
 
-.p-dropdown-item:hover{
+.p-select-item:hover{
 
   background:#eef2ff !important;
 
@@ -170,7 +170,7 @@ textarea[pInputTextarea]:focus,
 
 /* SELECTED ITEM */
 
-.p-dropdown-item.p-highlight{
+.p-select-item.p-highlight{
 
   background:#6366f1 !important;
 
@@ -238,4 +238,44 @@ textarea[pInputTextarea]:focus,
     padding:18px;
   }
 
+}
+
+.page {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
+
+.container {
+  width: 600px;
+}
+
+.card {
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.field {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label {
+  font-weight: 600;
+  font-size: 13px;
+  color: #1f2937;
+}
+
+.w-full {
+  width: 100%;
+}
+
+input, textarea {
+  width: 100%;
 }

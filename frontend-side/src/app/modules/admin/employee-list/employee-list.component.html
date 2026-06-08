@@ -7,7 +7,9 @@
   <p-table
     [value]="employees"
     [paginator]="true"
-    [rows]="8"
+    [rows]="rows"
+    [loading]="loading"
+    [rowsPerPageOptions]="[5, 10, 20]"
     responsiveLayout="scroll"
   >
 
@@ -15,6 +17,7 @@
       <tr>
         <th>Name</th>
         <th>Email</th>
+        <th>Phone Number</th>
         <th>Department</th>
         <th>Team</th>
         <th>Level</th>
@@ -25,25 +28,31 @@
 
     <ng-template pTemplate="body" let-emp>
       <tr>
-
         <td>{{ emp.firstname }} {{ emp.lastname }}</td>
         <td>{{ emp.email }}</td>
-        <td>{{ emp.department?.name }}</td>
+        <td>{{ emp.phonenumber }}</td>
+        <td>{{ emp.departement?.name }}</td>
         <td>{{ emp.team?.name }}</td>
-        <td>
-          <span class="badge">{{ emp.level }}</span>
-        </td>
+        <td><span class="badge">{{ emp.level }}</span></td>
         <td>{{ emp.salary }}</td>
 
         <td>
           <button pButton icon="pi pi-eye" class="p-button-text"></button>
-          <button pButton icon="pi pi-pencil" class="p-button-text"></button>
-          <button pButton icon="pi pi-trash" class="p-button-text p-button-danger"></button>
-        </td>
 
+          <button pButton icon="pi pi-pencil" class="p-button-text"></button>
+
+          <button
+            pButton
+            icon="pi pi-trash"
+            class="p-button-text p-button-danger"
+            (click)="deleteEmployee(emp.id, emp.firstname + ' ' + emp.lastname)">
+          </button>
+        </td>
       </tr>
     </ng-template>
 
   </p-table>
 
 </p-card>
+
+<p-confirmDialog></p-confirmDialog>

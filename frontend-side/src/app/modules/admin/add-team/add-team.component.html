@@ -11,9 +11,13 @@
           <i class="pi pi-users"></i>
         </div>
 
-        <h2>Create Team</h2>
+        <h2>
+  {{ isEdit ? 'Update Team' : 'Create Team' }}
+</h2>
 
-        <p>Manage your teams easily</p>
+<p>
+  {{ isEdit ? 'Edit team information' : 'Manage your teams easily' }}
+</p>
 
       </div>
 
@@ -48,6 +52,7 @@
           </label>
 
           <textarea
+          class="text-dark"
             pInputTextarea
             rows="4"
             formControlName="description"
@@ -63,6 +68,7 @@
           label="Save Team"
           icon="pi pi-check"
           class="submit-btn"
+          (click)="submit()"
         ></button>
 
       </form>

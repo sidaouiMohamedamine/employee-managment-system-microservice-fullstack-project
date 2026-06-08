@@ -4,7 +4,7 @@
     <h2>Teams</h2>
   </div>
 
-  <p-table [value]="teams" [paginator]="true" [rows]="8">
+  <p-table [value]="teams" [paginator]="true" [rows]="rows">
 
     <ng-template pTemplate="header">
       <tr>
@@ -19,11 +19,27 @@
       <tr>
         <td>{{ team.name }}</td>
         <td>{{ team.description }}</td>
-        <td><span class="badge">{{ team.employees?.length }}</span></td>
         <td>
+          <span class="badge">{{ team.employees?.length }}</span>
+        </td>
+        <td>
+
           <button pButton icon="pi pi-eye" class="p-button-text"></button>
-          <button pButton icon="pi pi-pencil" class="p-button-text"></button>
-          <button pButton icon="pi pi-trash" class="p-button-text p-button-danger"></button>
+
+          <button
+            pButton
+            icon="pi pi-pencil"
+            class="p-button-text"
+            (click)="editTeam(team.id)">
+          </button>
+
+          <button
+            pButton
+            icon="pi pi-trash"
+            class="p-button-text p-button-danger"
+            (click)="deleteTeam(team.id, team.name)">
+          </button>
+
         </td>
       </tr>
     </ng-template>
@@ -31,3 +47,4 @@
   </p-table>
 
 </p-card>
+<p-confirmDialog></p-confirmDialog>

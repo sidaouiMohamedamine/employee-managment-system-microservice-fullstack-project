@@ -73,7 +73,7 @@
 
           <input
             pInputText
-            formControlName="phoneNumber"
+            formControlName="phonenumber"
             placeholder="+216..."
           />
         </div>
@@ -89,52 +89,66 @@
             placeholder="1000"
           />
         </div>
+  <div class="field">
+    <label>Birth Date</label>
 
+    <input
+      pInputText
+      type="date"
+      formControlName="birthDate"
+    />
+  </div>
         <!-- LEVEL -->
         <div class="field">
           <label>Level</label>
 
-          <p-dropdown
-            [options]="levels"
-            formControlName="level"
-            placeholder="Select level"
-          ></p-dropdown>
+         <p-select
+  [options]="levels"
+  optionLabel="label"
+  optionValue="value"
+  formControlName="level"
+  placeholder="Select level">
+</p-select>
         </div>
 
         <!-- DEPARTMENT -->
         <div class="field">
-          <label>Department</label>
+                    <label>Department</label>
 
-          <p-dropdown
-            [options]="departments"
-            formControlName="department"
-            optionLabel="name"
-            placeholder="Select department"
-          ></p-dropdown>
+       <p-select
+         [options]="departments"
+         optionLabel="name"
+         optionValue="id"
+         formControlName="departement"
+         placeholder="Select department">
+</p-select>
+
         </div>
-
         <!-- TEAM -->
-        <div class="field">
+                 <div class="field">
           <label>Team</label>
 
-          <p-dropdown
-            [options]="teams"
-            formControlName="team"
-            optionLabel="name"
-            placeholder="Select team"
-          ></p-dropdown>
-        </div>
+    <p-select
+  [options]="teams"
+  optionLabel="name"
+  optionValue="id"
+  formControlName="teamId"
+  placeholder="Select team">
+</p-select>
 
+
+</div>
         <!-- CONTRACT -->
         <div class="field">
           <label>Contract</label>
 
-          <p-dropdown
-            [options]="contracts"
-            formControlName="contract"
-            optionLabel="type"
-            placeholder="Select contract"
-          ></p-dropdown>
+      <p-select
+  [options]="contracts"
+  optionLabel="type"
+  optionValue="id"
+  formControlName="contractId"
+  placeholder="Select contract">
+</p-select>
         </div>
 
         <!-- ADDRESS -->
@@ -157,6 +171,7 @@
           icon="pi pi-check"
           class="btn text-light"
           [disabled]="employeeForm.invalid"
+          (click)="submit()"
         ></button>
       </form>
     </p-card>

@@ -48,6 +48,13 @@ const routes: Routes = [
         path: 'employee-list',
         component: EmployeeListComponent
       },
+      {
+        path: 'edit-departments/:id',
+         component: AddDepartmentComponent
+      },
+      {
+        path: 'edit-team/:id', component: AddTeamComponent }
+
     ]
     },
     { path: '', redirectTo: 'auth', pathMatch: 'full' }
