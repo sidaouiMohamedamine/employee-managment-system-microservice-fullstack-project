@@ -13,5 +13,4 @@ export class Employee {
   adress: string;
   department: Department;
   team: Team;
-  contract: Contract;
 }

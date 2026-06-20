@@ -4,35 +4,84 @@
     <h2>Contracts</h2>
   </div>
 
-  <p-table [value]="contracts" [paginator]="true" [rows]="8">
+  <p-table
+    [value]="contracts"
+    [paginator]="true"
+    [rows]="rows">
 
     <ng-template pTemplate="header">
+
       <tr>
+        <th>Employee Name</th>
         <th>Start Date</th>
         <th>End Date</th>
         <th>Amount</th>
         <th>Type</th>
-        <th>Employee ID</th>
         <th>Actions</th>
       </tr>
+
     </ng-template>
 
-    <ng-template pTemplate="body" let-contract>
+    <ng-template
+      pTemplate="body"
+      let-contract>
+
       <tr>
-        <td>{{ contract.startdate | date }}</td>
-        <td>{{ contract.enddate | date }}</td>
-        <td>{{ contract.contractAmount }}</td>
-        <td><span class="badge">{{ contract.type }}</span></td>
-        <td>{{ contract.employeeId }}</td>
+          <td>
+          {{ contract.employeeName }}
+        </td>
 
         <td>
-          <button pButton icon="pi pi-eye" class="p-button-text"></button>
-          <button pButton icon="pi pi-pencil" class="p-button-text"></button>
-          <button pButton icon="pi pi-trash" class="p-button-text p-button-danger"></button>
+          {{ contract.startdate | date:'dd/MM/yyyy' }}
         </td>
+
+        <td>
+          {{ contract.enddate | date:'dd/MM/yyyy' }}
+        </td>
+
+        <td>
+          {{ contract.contractAmount }}
+        </td>
+
+        <td>
+          <span class="badge">
+            {{ contract.type }}
+          </span>
+        </td>
+
+      
+
+        <td>
+
+          <button
+            pButton
+            icon="pi pi-eye"
+            class="p-button-text"
+            (click)="viewContract(contract.id!)">
+          </button>
+
+          <button
+            pButton
+            icon="pi pi-pencil"
+            class="p-button-text"
+            (click)="editContract(contract.id!)">
+          </button>
+
+          <button
+            pButton
+            icon="pi pi-trash"
+            class="p-button-text p-button-danger"
+            (click)="deleteContract(contract.id!)">
+          </button>
+
+        </td>
+
       </tr>
+
     </ng-template>
 
   </p-table>
 
 </p-card>
+
+<p-confirmDialog></p-confirmDialog>

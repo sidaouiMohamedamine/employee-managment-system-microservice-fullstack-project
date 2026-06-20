@@ -2,43 +2,40 @@
 
   <div class="container">
 
-    <p-card styleClass="card">
+    <p-card>
 
-      <!-- HEADER -->
       <div class="header">
-        
-        <h2>          <i class="pi pi-file"></i>
-Create Contract</h2>
-        <p>Add a new contract for employee</p>
+        <h2>
+          <i class="pi pi-file"></i>
+          Create Contract
+        </h2>
 
+        <p>Add a new employee contract</p>
       </div>
 
-      <!-- FORM -->
-      <form [formGroup]="contractForm" class="p-fluid">
+      <form [formGroup]="contractForm">
 
-        <!-- START DATE -->
+        <!-- Start Date -->
         <div class="field">
           <label>Start Date</label>
 
           <input
             type="date"
             pInputText
-            formControlName="startdate"
-          />
+            formControlName="startdate">
         </div>
 
-        <!-- END DATE -->
+        <!-- End Date -->
         <div class="field">
           <label>End Date</label>
 
           <input
             type="date"
             pInputText
-            formControlName="enddate"
-          />
+            formControlName="enddate">
         </div>
 
-        <!-- AMOUNT -->
+        <!-- Amount -->
         <div class="field">
           <label>Contract Amount</label>
 
@@ -46,41 +43,43 @@ Create Contract</h2>
             type="number"
             pInputText
             formControlName="contractAmount"
-            placeholder="5000"
-          />
+            placeholder="Enter amount">
         </div>
 
-        <!-- TYPE -->
+        <!-- Employee -->
         <div class="field">
-          <label>Type</label>
+          <label>Employee Name</label>
+
+           <p-dropdown
+      [options]="employees"
+      formControlName="employeeId"
+      placeholder="Select Employee"
+      optionLabel="label"
+      optionValue="value">
+  </p-dropdown>
+
+        </div>
+
+        <!-- Type -->
+        <div class="field">
+          <label>Contract Type</label>
 
           <p-dropdown
             [options]="types"
             formControlName="type"
-            placeholder="Select type"
-          ></p-dropdown>
+            placeholder="Select type">
+          </p-dropdown>
         </div>
 
-        <!-- EMPLOYEE ID -->
-        <div class="field">
-          <label>Employee ID</label>
-
-          <input
-            type="number"
-            pInputText
-            formControlName="employeeId"
-            placeholder="1"
-          />
-        </div>
-
-        <!-- BUTTON -->
+        <!-- Button -->
         <button
           pButton
-          label="Save Contract"
+          type="button"
+          label="Create Contract"
           icon="pi pi-check"
-          class="btn"
-          [disabled]="contractForm.invalid"
-        ></button>
+          (click)="submit()"
+          [disabled]="contractForm.invalid">
+        </button>
 
       </form>
 

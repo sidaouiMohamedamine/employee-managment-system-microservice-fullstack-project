@@ -6,6 +6,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ContractService } from '../../../core/services/contracts/contract.service';
+import { Contract } from '../../../core/models/Contract';
+import { EmployeeService } from '../../../core/services/employees/employee.service';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-add-contract',
   standalone: true,
@@ -15,21 +19,36 @@ import { ReactiveFormsModule } from '@angular/forms';
     CardModule,
     InputTextModule,
     DropdownModule,
-    ButtonModule
+    ButtonModule,
   ],
   templateUrl: './add-contract.component.html',
   styleUrl: './add-contract.component.css'
 })
 export class AddContractComponent {
  contractForm: FormGroup;
+ isEditMode = false;
+contractId!: number;
 
-  types = [
-    { label: 'FULL_TIME', value: 'FULL_TIME' },
-    { label: 'PART_TIME', value: 'PART_TIME' },
-    { label: 'INTERNSHIP', value: 'INTERNSHIP' }
-  ];
+types = [
+  { label: 'CDI', value: 'CDI' },
+  { label: 'CDD', value: 'CDD' },
+  { label: 'CIVP', value: 'CIVP' },
+    { label: 'FREELANCE', value: 'FREELANCE' },
+  { label: 'INTERNSHIP', value: 'INTERNSHIP' },
+  { label: 'CONSULTANT', value: 'CONSULTANT' },
 
-  constructor(private fb: FormBuilder) {
+];
+
+employees: any[] = [];
+  constructor(
+      private fb: FormBuilder,
+      private contractService: ContractService,
+      private employeeService: EmployeeService,
+      private router:Router,
+      private route:ActivatedRoute
+
+
+  ) {
     this.contractForm = this.fb.group({
       startdate: ['', Validators.required],
       enddate: ['', Validators.required],
@@ -38,8 +57,70 @@ export class AddContractComponent {
       employeeId: ['', Validators.required]
     });
   }
+  ngOnInit() {
 
-  submit() {
-    console.log(this.contractForm.value);
+  this.employeeService.getAll()
+    .subscribe(data => {
+
+      this.employees = data.map((e:any) => ({
+        label: e.firstname + ' ' + e.lastname,
+        value: e.id
+      }));
+
+    });
+ const id = this.route.snapshot.paramMap.get('id');
+
+  if (id) {
+
+    this.isEditMode = true;
+    this.contractId = +id;
+
+    this.contractService.getById(this.contractId)
+      .subscribe(contract => {
+
+        this.contractForm.patchValue({
+          startdate: contract.startdate,
+          enddate: contract.enddate,
+          contractAmount: contract.contractAmount,
+          employeeId: contract.employeeId,
+          type: contract.type
+        });
+
+      });
+
   }
+}
+
+ submit(): void {
+
+    if (this.contractForm.invalid) {
+      this.contractForm.markAllAsTouched();
+      return;
+    }
+
+    const contract: Contract = this.contractForm.value;
+
+    this.contractService.create(contract)
+      .subscribe({
+
+        next: (response) => {
+
+          console.log('Contract created', response);
+
+          this.router.navigate(['/admin-dashboard/contract-list']);
+
+
+          this.contractForm.reset();
+        },
+
+        error: (error) => {
+
+          console.error(error);
+
+          alert('Error while creating contract');
+        }
+      });
+  }
+
+  
 }

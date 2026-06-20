@@ -80,14 +80,13 @@ export class AddEmployeeComponent implements OnInit {
       lastname: ['', [Validators.required, Validators.minLength(3)]],
       birthDate: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phonenumber: [''],
+      phonenumber: [null,Validators.required],
       salary: [0, [Validators.required, Validators.min(300)]],
       adress: [''],
       level: [null, Validators.required],
 
       departement: [null, Validators.required],
       teamId: [null, Validators.required],
-      contractId: [null, Validators.required]
     });
   }
 
@@ -133,15 +132,16 @@ export class AddEmployeeComponent implements OnInit {
       firstname: form.firstname,
       lastname: form.lastname,
       email: form.email,
-      birthDate:form.birthDate,
+      birthDate: form.birthDate,
       phonenumber: form.phonenumber,
       salary: form.salary,
       adress: form.adress,
       level: form.level,
-
       departement: { id: form.departement },
       team: { id: form.teamId },
-      contract: { id: form.contractId }
+      contract: {
+        id: 0
+      }
     };
 
     console.log('PAYLOAD =>', payload);
@@ -157,7 +157,7 @@ export class AddEmployeeComponent implements OnInit {
         this.loading = false;
 
         setTimeout(() => {
-          this.router.navigate(['/admin/employees']);
+          this.router.navigate(['/admin-dashboard/employee-list']);
         }, 1200);
       },
 

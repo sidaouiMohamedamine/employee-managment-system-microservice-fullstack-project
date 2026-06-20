@@ -29,7 +29,7 @@
             placeholder="John"
           />
 
-          <small class="error"
+          <small class="alert alert-danger"
             *ngIf="f['firstname'].invalid && f['firstname'].touched">
             First name is required
           </small>
@@ -45,7 +45,7 @@
             placeholder="Doe"
           />
 
-          <small class="error"
+          <small class="alert alert-danger"
             *ngIf="f['lastname'].invalid && f['lastname'].touched">
             Last name is required
           </small>
@@ -61,7 +61,7 @@
             placeholder="email@example.com"
           />
 
-          <small class="error"
+          <small class="alert alert-danger"
             *ngIf="f['email'].invalid && f['email'].touched">
             Valid email required
           </small>
@@ -76,6 +76,9 @@
             formControlName="phonenumber"
             placeholder="+216..."
           />
+            <small class="alert alert-danger"  *ngIf="f['phonenumber'].invalid && f['phonenumber'].touched">
+            Valid phonenumber required
+           </small>
         </div>
 
         <!-- SALARY -->
@@ -88,6 +91,7 @@
             formControlName="salary"
             placeholder="1000"
           />
+          
         </div>
   <div class="field">
     <label>Birth Date</label>
@@ -138,18 +142,7 @@
 
 
 </div>
-        <!-- CONTRACT -->
-        <div class="field">
-          <label>Contract</label>
-
-      <p-select
-  [options]="contracts"
-  optionLabel="type"
-  optionValue="id"
-  formControlName="contractId"
-  placeholder="Select contract">
-</p-select>
-        </div>
+    
 
         <!-- ADDRESS -->
         <div class="field">

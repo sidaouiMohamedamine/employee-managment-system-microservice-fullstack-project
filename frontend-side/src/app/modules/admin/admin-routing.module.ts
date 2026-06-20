@@ -9,6 +9,7 @@ import { TeamListComponent } from './team-list/team-list.component';
 import { ContractListComponent } from './contract-list/contract-list.component';
 import { AddTeamComponent } from './add-team/add-team.component';
 import { AddContractComponent } from './add-contract/add-contract.component';
+import { authGuardGuard } from '../../core/services/auth/auth-guard.guard';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
         path: 'add-contract',
         component: AddContractComponent
       },
+      {
+  path: 'edit-contract/:id',
+  component: AddContractComponent
+},
       {
         path: 'contract-list',
         component: ContractListComponent

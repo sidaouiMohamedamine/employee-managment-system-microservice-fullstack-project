@@ -4,18 +4,73 @@ body {
 }
 
 .p-card {
-  background: #ffffff !important;
-  color: #000 !important;
+  background: #ffffff  ;
+  color: #000  ;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
 }
 
 .p-card .p-card-title,
 .p-card .p-card-header {
-  color: #000 !important;
+  color: #000  ;
 }
 
 .p-inputtext {
-  background: #fff !important;
-  color: #000 !important;
+  background: #fff  ;
+  color: #000  ;
+}
+/* PANEL DU DROPDOWN (overlay attaché au body) */
+.p-select-overlay,
+.p-select-panel {
+  background: #ffffff  ;
+  border-radius: 16px  ;
+  border: 1px solid #e2e8f0  ;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1)  ;
+  overflow: hidden;
+}
+
+/* LISTE DES OPTIONS */
+.p-select-option,
+.p-select-item {
+  background: #ffffff  ;
+  color: #1e293b  ;
+  padding: 14px  ;
+}
+
+/* HOVER */
+.p-select-option:hover,
+.p-select-item:hover {
+  background: #eef2ff  ;
+  color: #4f46e5  ;
+}
+
+/* OPTION SÉLECTIONNÉE (le vert que tu vois vient du thème par défaut) */
+.p-select-option.p-select-option-selected,
+.p-select-item.p-highlight {
+  background: #6366f1  ;
+  color: #ffffff  ;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+/* TEXTE DE LA VALEUR SÉLECTIONNÉE (select fermé) */
+.p-select-label {
+  color: #1e293b  ;
+}
+
+/* PLACEHOLDER ("Select level", "Select team"...) */
+.p-select-label.p-placeholder {
+  color: #94a3b8 ;
+}
+
+/* ICÔNE FLÈCHE (au cas où elle aussi hérite d'une couleur claire) */
+.p-select-dropdown-icon,
+.p-select-dropdown {
+  color: #64748b ;
 }

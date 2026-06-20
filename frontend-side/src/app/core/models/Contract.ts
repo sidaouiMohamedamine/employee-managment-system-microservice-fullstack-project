@@ -1,6 +1,14 @@
 export class Contract {
-  id: number;
-  type: string | undefined;
-  startDate: string;
-  endDate: string;
+  id?: number;
+
+  startdate: string;
+  enddate: string;
+
+  contractAmount: number;
+
+  employeeId: number;
+
+  type: string;
+    employeeName: string;
+
 }

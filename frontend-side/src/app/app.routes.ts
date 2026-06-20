@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { EmployeeFormComponent } from './pages/employee-form/employee-form.component';
+import { authGuardGuard } from './core/services/auth/auth-guard.guard';
 
 export const routes: Routes = [
       {

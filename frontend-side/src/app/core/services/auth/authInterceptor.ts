@@ -20,11 +20,11 @@ import {
 } from '@angular/common/http';
 import { inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Observable, catchError, switchMap, throwError, BehaviorSubject, filter, take } from 'rxjs';
+import { Observable, catchError, switchMap, throwError, BehaviorSubject, filter, take, Subject } from 'rxjs';
 import { AuthService } from './auth.service';
 
 let isRefreshing = false;
-const refreshDone$ = new BehaviorSubject<string | null>(null);
+const refreshDone$ = new Subject<string | null>();
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
@@ -82,4 +82,5 @@ function handle401(
     take(1),
     switchMap(token => next(addToken(req, token)))
   );
+  
 }
