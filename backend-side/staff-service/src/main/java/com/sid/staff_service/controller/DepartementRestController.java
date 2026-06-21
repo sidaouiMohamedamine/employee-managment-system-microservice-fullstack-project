@@ -34,7 +34,7 @@ public class DepartementRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Departement> updateDepartement(@RequestBody Departement departement, @PathVariable Long id) {
+    public ResponseEntity<Departement> updateDepartement(@PathVariable Long id,@RequestBody Departement departement) {
         Departement updatedDepartement = departementService.updateDepartement(departement, id);
         return ResponseEntity.ok(updatedDepartement);
     }

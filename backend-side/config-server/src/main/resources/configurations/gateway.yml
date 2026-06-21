@@ -1,16 +1,40 @@
 server:
   port: 8090
+
 eureka:
   client:
     register-with-eureka: false
+
 spring:
+  application:
+    name: gateway
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8082/realms/empSec
+          jwk-set-uri: http://localhost:8082/realms/empSec/protocol/openid-connect/certs
   cloud:
     gateway:
       server:
         webflux:
-          discovery:
-            locator:
-              enabled: false
+          globalcors:
+            add-to-simple-url-handler-mapping: true
+            cors-configurations:
+              '[/**]':
+                allowed-origins:
+                  - "http://localhost:4200"
+                allowed-methods:
+                  - GET
+                  - POST
+                  - PUT
+                  - DELETE
+                  - OPTIONS
+                  - PATCH
+                allowed-headers:
+                  - "*"
+                allow-credentials: true
+                max-age: 3600
           routes:
             - id: staff
               uri: http://localhost:8060
@@ -20,6 +44,7 @@ spring:
               uri: http://localhost:8070
               predicates:
                 - Path=/api/contract/**
+
 management:
   tracing:
     sampling:

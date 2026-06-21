@@ -1,0 +1,26 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8082/realms/empSec
+          jwk-set-uri: http://localhost:8082/realms/empSec/protocol/openid-connect/certs
+
+keycloak:
+  auth-server-url: http://localhost:8082
+  realm: empSec
+  client-id: empSec
+  client-secret: sBd2fxx4oezNXr2oGwIkGkVUy3SHFIvV
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

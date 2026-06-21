@@ -4,6 +4,7 @@ import com.sid.contract_service.client.StaffClient;
 import com.sid.contract_service.dto.EmployeeDTO;
 import com.sid.contract_service.entity.Contract;
 import com.sid.contract_service.repository.ContractRepository;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +23,24 @@ public class ContractServiceImpl implements IContractService {
 
     @Override
     public Contract createContract(Contract contract) {
-        EmployeeDTO employee;
+
         try {
-            employee = staffClient.getEmployeeById(contract.getEmployeeId());
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Employee not found");
+            EmployeeDTO employee =
+                    staffClient.getEmployeeById(contract.getEmployeeId());
+
+            if (employee == null) {
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST,
+                        "Employee not found"
+                );
+            }
+
+        } catch (FeignException.NotFound e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Employee not found"
+            );
         }
-
-
 
         return contractRepository.save(contract);
     }

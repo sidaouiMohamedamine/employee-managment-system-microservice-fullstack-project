@@ -32,7 +32,7 @@ public class TeamRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Team> updateTeam(@RequestBody Team team, @PathVariable Long id) {
+    public ResponseEntity<Team> updateTeam(@PathVariable Long id,@RequestBody Team team) {
         Team updatedTeam = teamService.updateTeam(team, id);
         return ResponseEntity.ok(updatedTeam);
     }
