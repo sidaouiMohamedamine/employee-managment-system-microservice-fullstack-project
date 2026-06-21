@@ -22,10 +22,10 @@ export interface UserInfo {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
    // Keycloak Configuration
-  private readonly tokenUrl     = 'http://localhost:8080/realms/empSec/protocol/openid-connect/token';
-  private readonly logoutUrl    = 'http://localhost:8080/realms/empSec/protocol/openid-connect/logout';
+  private readonly tokenUrl     = 'http://localhost:8082/realms/empSec/protocol/openid-connect/token';
+  private readonly logoutUrl    = 'http://localhost:8082/realms/empSec/protocol/openid-connect/logout';
   private readonly clientId     = 'empSec';
-  private readonly clientSecret = 'yR1G4GdauopVimMqXgpF1lcafkzZZH3q';
+  private readonly clientSecret = 'sBd2fxx4oezNXr2oGwIkGkVUy3SHFIvV';
   
 
   private readonly isBrowser: boolean;
