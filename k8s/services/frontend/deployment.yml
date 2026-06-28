@@ -20,7 +20,6 @@ spec:
           ports:
             - containerPort: 80
 
-          # Probe corrigée (frontend web → pas /actuator)
           readinessProbe:
             httpGet:
               path: /
