@@ -1,6 +1,6 @@
 spring:
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: 192.168.1.134:9092
     template:
       default-topic: employee-created
     producer:
@@ -9,9 +9,9 @@ spring:
   application:
     name: staff
   config:
-    import: optional:configserver:http://localhost:8888
+    import: optional:configserver:http://config-server:8888
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/empSec
+          issuer-uri: http://host.docker.internal:8082/realms/empSec

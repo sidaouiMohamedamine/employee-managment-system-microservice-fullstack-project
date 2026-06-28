@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TeamService {
 
-private url = 'http://localhost:8090/api/staff/teams';
+private url = 'http://ems.local/api/staff/teams';
 
   constructor(private http: HttpClient) {}
 

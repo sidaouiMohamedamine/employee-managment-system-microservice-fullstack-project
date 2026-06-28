@@ -1,0 +1,108 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contract-service
+  namespace: ems
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: contract-service
+
+  template:
+    metadata:
+      labels:
+        app: contract-service
+
+    spec:
+
+      initContainers:
+        - name: wait-config
+          image: busybox
+          command:
+            - sh
+            - -c
+            - >
+              until wget -qO- http://config-server:8888/actuator/health;
+              do echo "waiting config-server...";
+              sleep 5;
+              done
+
+      containers:
+        - name: contract-service
+          image: sidaouimohamedamine/contract-service:latest
+          imagePullPolicy: Always
+
+          ports:
+            - containerPort: 8070
+
+          env:
+
+            - name: SPRING_CONFIG_IMPORT
+              value: optional:configserver:http://config-server:8888
+
+            - name: SPRING_CLOUD_CONFIG_URI
+              value: http://config-server:8888
+
+            - name: SPRING_APPLICATION_NAME
+              value: contract
+
+            - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+              value: http://eureka:8761/eureka
+
+            - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+              value: "192.168.1.134:9092"
+              
+            - name: MANAGEMENT_TRACING_SAMPLING_PROBABILITY
+              value: "1.0"
+
+            - name: MANAGEMENT_ZIPKIN_TRACING_ENDPOINT
+              value:  http://192.168.1.134:9411/api/v2/spans
+              
+
+            - name: STAFF_SERVICE_URL
+              value: http://staff-service:8060
+
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres-contract:5432/contract
+
+            - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
+
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: admin
+
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: update
+
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8070
+            initialDelaySeconds: 40
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8070
+            initialDelaySeconds: 60
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: contract-service
+  namespace: ems
+
+spec:
+  type: ClusterIP
+
+  selector:
+    app: contract-service
+
+  ports:
+    - port: 8070
+      targetPort: 8070

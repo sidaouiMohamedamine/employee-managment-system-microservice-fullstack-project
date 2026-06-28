@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class DepartmentService {
 
-private url = 'http://localhost:8090/api/staff/departements';
+private url = 'http://ems.local/api/staff/departements';
 
   constructor(private http: HttpClient) {}
 
