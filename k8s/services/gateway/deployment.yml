@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  namespace: ems
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      initContainers:
+        # Wait until the config-server is ready before starting
+        - name: wait-config
+          image: busybox
+          command: ['sh', '-c', 
+            'until wget -qO- http://config-server:8888/actuator/health; do echo waiting; sleep 5; done']
+      containers:
+        - name: gateway
+          image: sidaouimohamedamine/gateway:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8090
+          envFrom:
+            - configMapRef:
+                name: app-config
+          env:
+            - name: SPRING_CONFIG_IMPORT
+              value: optional:configserver:http://config-server:8888
+            - name: SPRING_CLOUD_CONFIG_URI
+              value: http://config-server:8888
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8090
+            initialDelaySeconds: 30
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway
+  namespace: ems
+
+spec:
+  type: ClusterIP
+
+  selector:
+    app: gateway
+
+  ports:
+    - port: 8090
+      targetPort: 8090

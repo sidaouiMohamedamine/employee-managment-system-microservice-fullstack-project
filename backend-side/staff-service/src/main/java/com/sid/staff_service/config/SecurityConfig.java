@@ -1,4 +1,4 @@
-package com.sid.contract_service.config;
+package com.sid.staff_service.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

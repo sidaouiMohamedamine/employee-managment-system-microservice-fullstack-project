@@ -12,8 +12,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8082/realms/empSec
-          jwk-set-uri: http://localhost:8082/realms/empSec/protocol/openid-connect/certs
+          issuer-uri: http://host.docker.internal:8082/realms/empSec
+          jwk-set-uri: http://host.docker.internal:8082/realms/empSec/protocol/openid-connect/certs
   cloud:
     gateway:
       server:
@@ -23,7 +23,8 @@ spring:
             cors-configurations:
               '[/**]':
                 allowed-origins:
-                  - "http://localhost:4200"
+                  - "http://frontend-side:4200"
+                  - "http://ems.local"
                 allowed-methods:
                   - GET
                   - POST
@@ -37,11 +38,11 @@ spring:
                 max-age: 3600
           routes:
             - id: staff
-              uri: http://localhost:8060
+              uri: http://staff-service:8060
               predicates:
                 - Path=/api/staff/**
             - id: contract
-              uri: http://localhost:8070
+              uri: http://contract-service:8070
               predicates:
                 - Path=/api/contract/**
 

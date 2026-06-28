@@ -9,7 +9,7 @@ import { EmployeeRequest } from '../../models/EmployeeRequest';
 })
 export class EmployeeService {
 
-  private url = 'http://localhost:8090/api/staff/employees';
+  private url = 'http://ems.local/api/staff/employees';
 
   constructor(private http: HttpClient) {}
 

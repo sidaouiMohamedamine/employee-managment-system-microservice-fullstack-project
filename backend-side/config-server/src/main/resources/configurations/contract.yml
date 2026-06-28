@@ -1,9 +1,9 @@
 eureka:
   instance:
-    hostname: localhost
+    prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://eureka:8761/eureka
 server:
   port: 8070
 spring:
@@ -11,7 +11,7 @@ spring:
     name: contract
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/contract
+    url: jdbc:postgresql://postgres-contract:5432/contract
     username: postgres
     password: admin
   jpa:
@@ -21,8 +21,11 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 staff:
   service:
-    url: http://localhost:8060
+    url: http://staff-service:8060
 management:
   tracing:
     sampling:
       probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://192.168.1.134:9411/api/v2/spans

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ContractService {
 
-  private url = 'http://localhost:8090/api/contract/contracts';
+  private url = 'http://ems.local/api/contract/contracts';
 
   constructor(private http: HttpClient) {}
 
